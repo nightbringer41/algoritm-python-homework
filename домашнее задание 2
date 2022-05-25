@@ -1,0 +1,174 @@
+#Написать программу, которая будет складывать, вычитать, умножать или делить два числа. Числа и знак операции вводятся пользователем. 
+#После выполнения вычисления программа не должна завершаться, а должна запрашивать новые данные для вычислений
+#Завершение программы должно выполняться при вводе символа '0' в качестве знака операции. 
+#Если пользователь вводит неверный знак (не '0', '+', '-', '*', '/'), то программа должна сообщать ему об ошибке и снова запрашивать знак операции.
+#Также сообщать пользователю о невозможности деления на ноль, если он ввел 0 в качестве делителя.
+
+
+def calculate(a, b, operator):
+    if operator == '+':
+        return a + b
+    elif operator == '-':
+        return a - b
+    elif operator == '*':
+        return a * b
+    else:
+        return a / b
+
+
+def is_correct_operator(operator):
+    return operator == '0' or operator == '+' or operator == '-' or operator == '*' or operator == '/'
+
+
+def get_operator():
+    return input('operator: ')
+
+
+def run_calculator(a=None, b=None):
+    if a is None:
+        a = float(input('a: '))
+    if b is None:
+        b = float(input('b: '))
+    operator = get_operator()
+
+    if not is_correct_operator(operator):
+        print('Wrong operator')
+        run_calculator(a, b)
+        return
+    elif operator == '0':
+        return
+    elif operator == '/' and b == 0:
+        print('No division by zero')
+        run_calculator()
+        return
+    else:
+        print(calculate(a, b, operator))
+        run_calculator()
+        
+        
+   
+run_calculator()
+        
+# Посчитать четные и нечетные цифры введенного натурального числа. Например, если введено число 34560, в нем 3 четные цифры (4, 6 и 0) и 2 нечетные (3 и 5).
+
+import math
+
+x = int(input('Input number: '))
+
+odd = 0
+even = 0
+
+
+def last_odd_or_even(x):
+  global odd, even
+  last_digit = x % 10
+  if last_digit % 2 == 0:
+    even += 1
+  else:
+    odd += 1
+
+
+last_odd_or_even(x)
+
+while x >= 10:
+  x = math.floor(x / 10)
+  last_odd_or_even(x)
+
+print('Odd:', odd)
+print('Even:', even)
+
+# Сформировать из введенного числа обратное по порядку входящих в него цифр и вывести на экран. Например, если введено число 3486, надо вывести 6843.
+
+import math
+
+x = int(input('Input number: '))
+
+reverse = ""
+
+
+def add_last_digit(x):
+  global reverse
+  last_digit = x % 10
+  reverse = reverse + str(last_digit)
+
+
+add_last_digit(x)
+
+while x >= 10:
+  x = math.floor(x / 10)
+  add_last_digit(x)
+
+print('Reversed:', int(reverse))
+
+
+
+# Найти сумму n элементов следующего ряда чисел: 1, -0.5, 0.25, -0.125,… Количество элементов (n) вводится с клавиатуры.
+
+n = int(input('Input n: '))
+
+if n == 0:
+  print('Sum:', 0)
+  exit()
+
+
+result = 1
+
+
+for i in range(1, n):
+  if i % 2 == 0:
+    result += 1 / (2**i)
+  else:
+    result += 1 / -(2**i)
+
+print('Sum:', result)
+
+# Вывести на экран коды и символы таблицы ASCII, начиная с символа под номером 32 и заканчивая 127-м включительно.
+# Вывод выполнить в табличной форме: по десять пар «код-символ» в каждой строке.
+
+row = ''
+table = ''
+for char in range(32, 128):
+    row += '{}:{}\t'.format(char, chr(char))
+    if not (char - 31) % 10:
+        table += '{}\n'.format(row)
+        row = ''
+table += '{}\n'.format(row)
+print(table)
+
+
+#В программе генерируется случайное целое число от 0 до 100. Пользователь должен его отгадать не более чем за 10 попыток.
+#После каждой неудачной попытки должно сообщаться больше или меньше введенное пользователем число, чем то, что загадано.
+# Если за 10 попыток число не отгадано, то вывести загаданное число.
+
+import random
+mysterious_number = random.randrange(0, 100)
+
+for i in range(10, 0, -1):
+  x = int(input('Your guess: '))
+  if x == mysterious_number:
+    print('Right!')
+    exit()
+  elif x < mysterious_number:
+    print('Too small')
+  else:
+    print('Too big')
+
+print('You lose. The answer was: ', mysterious_number)
+
+# Напишите программу, доказывающую или проверяющую,
+# что для множества натуральных чисел выполняется равенство: 1+2+...+n = n(n+1)/2, где n — любое натуральное число.
+
+
+def _current(n):
+    return n * (n + 1) / 2
+
+
+def _next(n):
+    return (n + 1) * (n + 2) / 2
+
+
+for i in range(1000):
+    print(_current(i + 1) == _next(i))
+    
+# 8 и 9 задания не совсем понял
+
