@@ -1,0 +1,192 @@
+# В диапазоне натуральных чисел от 2 до 99 определить, сколько из них кратны каждому из чисел в диапазоне от 2 до 9.
+
+result = {}
+
+for i in range(2, 10):
+    if result.get(i, None) is None:
+        result[i] = []
+
+    for j in range(2, 100):
+        if j % i == 0:
+            result[i].append(j)
+
+for x, y in result.items():
+    print(f'Divides by {x}: {len(y)}')
+    
+    
+ # Во втором массиве сохранить индексы четных элементов первого массива. Например, 
+ #если дан массив со значениями 8, 3, 15, 6, 4, 2, 
+ #второй массив надо заполнить значениями 0, 3, 4, 5, (индексация начинается с нуля),
+ #т.к. именно в этих позициях первого массива стоят четные числа.
+
+import random
+
+
+def getArrayOfInt(SIZE=10, MIN_ITEM=1, MAX_ITEM=100):
+    return [random.randint(MIN_ITEM, MAX_ITEM) for _ in range(SIZE)]
+
+
+array = getArrayOfInt()
+result = []
+
+for i, value in enumerate(array):
+    if value % 2 == 0:
+        result.append(i)
+
+print(array)
+print(result)   
+
+
+# В массиве случайных целых чисел поменять местами минимальный и максимальный элементы.
+
+import random
+
+
+def getArrayOfInt(SIZE=10, MIN_ITEM=1, MAX_ITEM=100):
+    return [random.randint(MIN_ITEM, MAX_ITEM) for _ in range(SIZE)]
+
+
+array = getArrayOfInt()
+print(f'In: {array}')
+
+extreme = {
+    'min': {
+        'index': 0,
+        'value': array[0]
+    },
+    'max': {
+        'index': 0,
+        'value': array[0]
+    },
+}
+
+for i, value in enumerate(array):
+    if value < extreme['min']['value']:
+        extreme['min']['value'] = value
+        extreme['min']['index'] = i
+
+    if value > extreme['max']['value']:
+        extreme['max']['value'] = value
+        extreme['max']['index'] = i
+
+minI = extreme['min']['index']
+maxI = extreme['max']['index']
+
+array[minI], array[maxI] = array[maxI], array[minI]
+
+print(f'Out: {array}')
+
+# Определить, какое число в массиве встречается чаще всего.
+
+import random
+
+
+def getArrayOfInt(SIZE=10, MIN_ITEM=1, MAX_ITEM=100):
+    return [random.randint(MIN_ITEM, MAX_ITEM) for _ in range(SIZE)]
+
+
+array = getArrayOfInt(50, 1, 10)
+print(f'In: {array}')
+
+frequency = {}
+
+for i in array:
+    if frequency.get(i, None) is None:
+        frequency[i] = 1
+    else:
+        frequency[i] += 1
+
+result = {
+    'value': None,
+    'frequency': None
+}
+
+for value, frequency in frequency.items():
+    if result['value'] is None:
+        result['value'] = value
+        result['frequency'] = frequency
+    else:
+        if frequency > result['frequency']:
+            result['value'] = value
+            result['frequency'] = frequency
+
+print(f'{result["value"]} is the most frequent number, it occurs {result["frequency"]} times')
+
+# В массиве найти максимальный отрицательный элемент. Вывести на экран его значение и позицию в массиве.
+
+
+import random
+
+
+def getArrayOfInt(SIZE=10, MIN_ITEM=1, MAX_ITEM=100):
+    return [random.randint(MIN_ITEM, MAX_ITEM) for _ in range(SIZE)]
+
+
+array = getArrayOfInt(10, -100, 100)
+print(f'In: {array}')
+
+maxNegative = None
+pos = None
+
+for index, i in enumerate(array):
+    if i < 0:
+        if maxNegative is None:
+            maxNegative = i
+            pos = index
+        elif maxNegative < i:
+            maxNegative = i
+            pos = index
+
+print(f'Max negative: {maxNegative}, position: {pos}')
+
+
+# В одномерном массиве найти сумму элементов, находящихся между минимальным и максимальным элементами.
+# Сами минимальный и максимальный элементы в сумму не включать.
+
+import random
+
+LST_LEN = 20
+
+num_lst = [random.randint(0, 100) for _ in range(LST_LEN)]
+min_ = max_ = sum_ = 0
+
+for i in range(LST_LEN):
+    if num_lst[i] <= num_lst[min_]:
+        min_ = i
+    if num_lst[i] >= num_lst[max_]:
+        max_ = i
+
+if min_ > max_:
+    min_, max_ = max_, min_
+
+for i in range(min_+1, max_):
+    sum_ += num_lst[i]
+
+print(f'Исходный массив\n{num_lst}\n\n'
+      f'Сумма элементов между минимальным и максимальным значениями равна {sum_}'
+      )
+      
+# В одномерном массиве целых чисел определить два наименьших элемента.
+# Они могут быть как равны между собой (оба являться минимальными), так и различаться.
+
+import random
+
+arr = [random.randint(1, 50) for _ in range(15)]
+
+print(arr)
+
+min_1 = arr[0]
+min_2 = arr[0]
+
+for i in arr:
+    if i < min_1:
+        min_1 = i
+
+if arr.count(min_1) == 1:
+    for i in arr:
+      if i < min_2 and i != min_1:
+           min_2 = i
+else:
+    min_2 = min_1
+
+print('Самый маленький элемент массива: {}. Следующий самый маленький элемент: {}'.format(min_1, min_2))     
